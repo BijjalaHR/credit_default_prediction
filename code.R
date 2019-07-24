@@ -9,7 +9,7 @@ init_df = init_df[-1, ]
 # Removing the first row because it is column names
 cc_df <- init_df[,-1]
 # Making a new dataframe without the first column
-# First column is IDs, just continuoues number. First column is not necessary to feed to neural network
+# First column, IDs, is just continuous number. First column is not necessary to feed to neural network
 rownames(cc_df) <- init_df[,1]
 # Using IDs as row names of new dataframe
 colnames(cc_df)[24] <- "default_payment_next_month"
@@ -26,20 +26,29 @@ for(i in 1:24){
 introduce(cc_df)
 # Now, all columns are numeric
 
+plot_missing(cc_df)
+# Additional check to know that there are no missing values
+
 normalize <- function(x) {
   return ((x - min(x)) / (max(x) - min(x)))
 }
 # Creating a function to normalize the data
 norm_cc <- as.data.frame(lapply(cc_df, normalize))
-# Now data is normalized, all values between 0 and 1
+# Now data is normalized i.e., all values between 0 and 1
+
+plot_histogram(norm_cc)
+# To visualize  value distribution of all the attribute
+plot_histogram(norm_cc["default_payment_next_month"], binary_as_factor = FALSE)
+# Large difference between class types
+table(norm_cc$default_payment_next_month)
+# Label 1 is observed only 6636 times out of 30000 samples
 
 library(caret)
 set.seed(102)
 intrain <- createDataPartition(y=norm_cc$default_payment_next_month,p=0.75,list=FALSE)
 training <- norm_cc[intrain,]
 testing <- norm_cc[-intrain,]
-# training and testing data are split in 3:1 ratio
-# The split is done according to the labels
+# training and testing data are split in 3:1 ratio according to the labels
 
 table(training$default_payment_next_month)
 table(testing$default_payment_next_month)
@@ -62,8 +71,7 @@ model %>%
   layer_dense(units = 6, activation = 'relu') %>%
   layer_dense(units = 2, activation = 'relu') %>%
   layer_dense(units = 2, activation = 'softmax')
-my_net <- model %>% compile(loss = 'binary_crossentropy', optimizer = optimizer_adam(lr=0.001), 
-                            metrics = c('accuracy'))
+model %>% compile(loss = 'binary_crossentropy', optimizer = optimizer_adam(lr=0.001), metrics = c('accuracy'))
 # A dense/fully-connected neural network is created
 
 summary(model)
