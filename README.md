@@ -86,11 +86,12 @@ The validation loss is observed to increase after 100 epochs. So, it is good to 
 ![alt text](images/e100b36.png)
 
 After that, the network is validated on the test dataset. The metrics of this validations are shown in the form of confusion-matrix below.
-- | 0 | 1 | Accuracy |
+
+<i></i> | 0 | 1 | Accuracy |
 --- | --- | --- | --- |
 0 | 5496 | 1018 | 84.37% |
 1 | 346 | 640 | 64.9% |
-  |   |   | 81.81% |
+<i></i> | <i></i> | <i></i> | 81.81% |
 
 Label 0 is predicted with an accuracy of 84.37%, while label 1 is predicted with an accuracy of 64.9%. Label 1 has low accuracy because of its low number of samples in train data. With this, the overall accuracy of this model is 81.81%.
 
