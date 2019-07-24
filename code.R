@@ -1,5 +1,5 @@
 library(readxl)
-default_of_credit_card_clients <- read_excel("cc_def_pred/default of credit card clients.xls")
+default_of_credit_card_clients <- read_excel("default of credit card clients.xls")
 # Data Import
 init_df <- data.frame(default_of_credit_card_clients)
 
