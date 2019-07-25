@@ -49,7 +49,7 @@ The ID column is not necessary. So, it is assigned as row names.
 
 ![alt text](images/data_head1.png)
 
-All the data is numeric, with no text. But the numbers are in the form of strings. So, each column is made numeric.
+Even though the current data has only numbers in it, these are present as nominal values (strings). So, each column is made numeric.
 
 There are no missing values in this dataset.
 
@@ -79,13 +79,13 @@ A five-layer dense neural network is developed. The layout of this network is su
 
 The output layer has *softmax* activation, while the remaining layers use *relu* as the activation function. Since, this is a binary classification task, *binary_crossentropy* is used as the loss function. *Adam* optimizer is used with a learning rate of 0.001.
 
-32 is a popular batch-size to choose. But here, 32 batch doesn't divide the train data perfectly. So, a batch-size of 36 is chosen. For the initial process, the train data is further split to get a 25% test data. Then, the network is trained for 200 epochs. The training process is shown below.
+32 is a popular batch-size to choose. But here, 32 batch doesn't divide the train data perfectly. So, a batch-size of 36 is chosen. For the initial process, the train data is further split to get a 25% validation data. Keras takes samples for validation data from the end of train data. Then, the network is trained for 200 epochs. The training process is shown below.
 ![alt text](images/e200b36.png)
 
-The validation loss is observed to increase after 100 epochs. So, it is good to stop the training process at 100 epochs. The second split of training data is removed and the network is freshly trained on full training data. 
+The validation loss is observed to increase after 100 epochs. So, it is good to stop the training process at 100 epochs. Since, the data is small, it is necessary to feed the network with full train data. So, the second split for validation data is removed and the network is freshly trained on full training data.
 ![alt text](images/e100b36.png)
 
-After that, the network is validated on the test dataset. The metrics of this validations are shown in the form of confusion-matrix below.
+After that, the network is evaluated on the test dataset. The evaluation metrics are shown in the form of confusion-matrix below.
 
 <i></i> | 0 | 1 | Accuracy |
 --- | --- | --- | --- |
